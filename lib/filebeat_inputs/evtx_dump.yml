@@ -11,8 +11,8 @@
     - /logstash/evtx_dump/**/*.json
   close.on_state_change.inactive: 5m
   clean_removed: true
-  # the [labels][type] field is used in logstash processing logic
   processors:
     - add_labels:
        labels:
          type: evtx_dump
+  tags: [ 'json' ]
