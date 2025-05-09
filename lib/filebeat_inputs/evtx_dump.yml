@@ -1,0 +1,18 @@
+# SOF-ELK® Configuration File
+# (C)2024 Lewes Technology Consulting, LLC
+#
+# This is a sample Filebeat prospector file that looks into the /logstash/evtxdump/ directory for files to load.
+# Input files are generated with evtx_dump from https://github.com/omerbenamram/evtx in jsonl format
+# These are sent to localhost:5044, where Logstash is listening.
+
+- type: filestream
+  id: evtx_dump
+  paths:
+    - /logstash/evtx_dump/**/*.json
+  close.on_state_change.inactive: 5m
+  clean_removed: true
+  # the [labels][type] field is used in logstash processing logic
+  processors:
+    - add_labels:
+       labels:
+         type: evtx_dump
